@@ -1,0 +1,66 @@
+CREATING QUEUES & THEIR RESPECTIVE CIRCULAR LISTS
+I started the program with some of the basic queue functions init, peek, and enqueue.
+After this I added the createMonster function.
+From here I jumped to main where I create an array of queues with size 10.
+Each queue is passed to the init function where its front & back pointers are set to NULL, and its node count set to EMPTY(-1).
+I then created the file pointer infile, and store the first integer in G.
+I then loop though using G to gather each queues information from the input file.
+To ensure the queues are sorted in ascending ground number order I store each queue at its ground number-1 position, for example queue with ground number 6 will be stored at queues[5].
+The isEmpty function will help us to only pass queues that are not empty.
+Using isEmpty as mentioned, the created queues are passed to createReverseCircle. Which then calls enqueue in a loop starting from the node count, and decrementing until 1.
+The enqueue function creates a temp node pointer, and calls create monster to make & return the newly dynamically allocated node.
+From here enqueue checks if the back is not equal to NULL, which would indicate that the queues back is already pointed to a node. 
+If this is the case then backs next is set equal to temp.
+Then back is updated to point to temp.
+Next we check if the front of the queue is NULL. This would indicate that the queue is empty.
+If it is we set the front to point to temp.
+Enqueue returns 1 is the operation was successful, and returns 0 if space was not allocated for temp.
+After this we return to createReverseCircle, and our dynamically allocated linked list is created for the current queue.
+However, as of right now the list is not yet circular.
+We can solve this in one line by setting q->back->next equal to the front of the queue.
+This process is repeated for each non-empty queue.
+During this process I printed each queues front, back, and back->next pointers to ensure each list was properly made, and circular. 
+
+REVERSING EACH QUEUES LINKED LIST
+The rearangeCircle function is called for each non-empty queue, where the queues linked list is reversed. 
+After this process the queues front & back pointers are swapped, and backs->next is again set to point to the front, ensuring that the queue is circular. 
+The display function is called once before, and once after to show the lists are being reversed peoperly.
+Here I mainly tested by printing the queues front & back pointers to ensure the they were being handled properly. 
+
+PHASE 1
+In phase 1, I did not utilize dequeue, meaning that instead of using front & back pointers to hide the node, I instead directly deleted the node from the list.
+Phase 1 handles one queue at a time.
+In the phase 1 function, a infinite while loop runs until the queues node count is equal the queues th integer. This will indicate that the phase is complete for that queue.
+A walker variable is set to walk k-1 times, so that it will stop at the node before the one it needs to delete.
+Next a set of IF statements check if the node is the front of the list, back of the list, or somewhere in between.
+If the node we want to delete is in the front, then we must move front forward, if the node is in the back we must move back backwards, and set the new backs next equal to front.
+If the node is in between then we must introduce the previous node to the node after the one we want to delete.
+Once a node is deleted the queues node count is decremented by 1.
+During this process I again tested by printing each queues front, and back pointers as this was the easiest way to handle any seg faults before they happen.
+I also tested each queues node count to ensure that the loop is breaking properly.
+
+PHASE 2
+In phase 2, dequeue is utilzied, meaning that we will use the front & back pointers of the queue to hide nodes from the list.
+Phase 2 will handle all queues in 1 function call.
+In the start I calculate total population of all the queues, by adding each queues node count.
+This will be used to break the infinite while loop when it reaches 1.
+I also declare a queue pointer max that will point to the monster we delete each time the loop happens.
+The loop establishes the first non empty queues front monster as max taking help from the nonEmpty function.
+From here another loop begins that will locate the max monster among all the queues fronts.
+If the current monster is greater than max, then max is updated to point to current.
+If there is a tie between monsters then the monsters ground numbers are compared.
+The monster with the higher ground number will be pointed to by max.
+At the end of the loop the queue pointed by max is passed to dequeue, and total population is decremented by 1.
+Dequeue first sets a temp node to point to the front of the queue.
+It then checks if the queue has only 1 node, if so it sets the front & back pointers to NULL, the node count to EMPTY, and frees the node.
+If the queue has more than 1 node, then front is set to temp->next, which will move the front to the next node in the list.
+After this node count is decremented by 1, and temp is freed.
+After this we return to the phase 2 function where the loop continues until total population is 1.
+After this the peek function is utilzized to print the final monster that will survive.
+
+
+
+
+
+
+

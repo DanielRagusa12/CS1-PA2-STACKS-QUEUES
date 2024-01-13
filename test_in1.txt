@@ -1,0 +1,7 @@
+6
+1 alabama 4 2 2
+10 wisconsin 5 3 2
+4 gseuhgbesfuhefenfefensefesfssfsf 15 5 5 
+8 hello 9 2 4 
+3 garfield 8 2 1
+9 daniel 6 2 4
